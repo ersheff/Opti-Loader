@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Opti Loader</title>
+    </head>
+    <body>
+        <style>
+            * {
+                overflow: hidden;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            main {
+                margin: 0px 18px;
+            }
+            iframe {
+                width: 100%;
+                height: 100vh;
+            }
+        </style>
+
+        <main>
+            <iframe id="poster-frame" src="" frameborder="0"></iframe>
+        </main>
+
+        <script>
+            async function init() {
+                const posterFrame = document.getElementById("poster-frame");
+                let index = 0;
+
+                try {
+                    const response = await fetch("./poster-urls.json");
+                    const { urls } = await response.json();
+
+                    updatePoster();
+
+                    setInterval(updatePoster, 20000);
+
+                    function updatePoster() {
+                        posterFrame.src = urls[index].replace(
+                            "sketches",
+                            "full",
+                        );
+                        index++;
+                        if (index >= urls.length) {
+                            index = 0;
+                        }
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            init();
+        </script>
+    </body>
+</html>
