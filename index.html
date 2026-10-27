@@ -24,24 +24,24 @@
         </style>
 
         <main>
-            <iframe id="poster-frame" src="" frameborder="0"></iframe>
+            <iframe id="sketch-frame" src="" frameborder="0"></iframe>
         </main>
 
         <script>
             async function init() {
-                const posterFrame = document.getElementById("poster-frame");
+                const sketchFrame = document.getElementById("sketch-frame");
                 let index = 0;
 
                 try {
-                    const response = await fetch("./poster-urls.json");
+                    const response = await fetch("./landscape-urls.json");
                     const { urls } = await response.json();
 
-                    updatePoster();
+                    updateFrame();
 
-                    setInterval(updatePoster, 15000);
+                    setInterval(updateFrame, 15000);
 
-                    function updatePoster() {
-                        posterFrame.src = urls[index].replace(
+                    function updateFrame() {
+                        sketchFrame.src = urls[index].replace(
                             "sketches",
                             "full",
                         );
